@@ -1,0 +1,135 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Avalonia.TemplatesMVVM.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="700"
+        MinWidth="563"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Normal"
+        Height="700"
+        Width="600"
+        x:Class="Avalonia.TemplatesMVVM.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Avalonia.TemplatesMVVM">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    <Grid RowDefinitions="*,200,30"
+          Margin="10,40,10,20">
+        <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Spacing="15">
+            <ComboBox HorizontalContentAlignment="Left"
+                      VerticalContentAlignment="Top"
+                      MaxDropDownHeight="150"
+                      MinWidth="390"
+                      MaxWidth="530"
+                      x:Name="ReasonComboBox"
+                      SelectionChanged="Reason_OnSelectionChanged"
+                      SelectedIndex="{Binding ReasonComboBoxSelectedIndex}"
+                      PlaceholderText="Причина:">
+                <ComboBoxItem>
+                    <TextBlock Text="Если нужно перенести заказ и до клиента не дозвонились"
+                               HorizontalAlignment="Center"/>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Если нужно перенести заказ и до клиента не дозвонились."
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Причина: Не проходит оплата. Ошибка Недостаточно средств."
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <TextBlock Text="Если нужно перенести заказ и клиенту ПОЗДНО по времени звонить"
+                               HorizontalAlignment="Center"/>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Если нужно перенести заказ и до клиента не дозвонились."
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Причина: Кл не выходит на связь при доставке заказа"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Если нужно перенести заказ и до клиента не дозвонились."
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Причина: Не проходит оплата. Другая ошибка"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <TextBlock Text="Шаблон СберМегаМаркет (Goods) отмена заказа"
+                               HorizontalAlignment="Center"/>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <TextBlock Text="Шаблон возврата ДС СберМегаМаркет"
+                               HorizontalAlignment="Center"/>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <TextBlock Text="Шаблон в Ашан"
+                               HorizontalAlignment="Center"/>
+                </ComboBoxItem>
+            </ComboBox>
+            <StackPanel Orientation="Horizontal"
+                        Spacing="20"
+                        HorizontalAlignment="Center">
+                <RadioButton x:Name="MorningRadioButton"
+                             Content="Утро"
+                             IsChecked="{Binding MorningRadioButton}"/>
+                <RadioButton x:Name="DayRadioButton" 
+                             Content="День"
+                             IsChecked="{Binding DayRadioButton}"/>
+                <RadioButton x:Name="EveningRadioButton" 
+                             Content="Вечер"/>
+            </StackPanel>
+            <TextBox IsVisible="False"
+                     x:Name="FirstName"
+                     Watermark="Имя"
+                     Text="{Binding FirstName}"/>
+            <TextBox IsVisible="True"
+                     x:Name="PhoneNumber"
+                     Watermark="Тел. Кл:"
+                     Text="{Binding PhoneNumber}"/>
+            <TextBox IsVisible="False"
+                     x:Name="ReasonTextBox"
+                     Watermark="Причина:"
+                     Text="{Binding ReasonTextBox}"/>
+            <TextBox IsVisible="True"
+                     x:Name="OrderNumber"
+                     Watermark="Номер заказа:"/>
+            <DatePicker x:Name="DatePicker"
+                        SelectedDate="{Binding DatePicker}"/>
+        </StackPanel>
+        <TextBox Grid.Row="1"
+                 Margin="0,0,0,15"
+                 AcceptsReturn="True"
+                 x:Name="FullText"
+                 Text="{Binding FullText}">
+        </TextBox>
+        <Button Grid.Row="2" 
+                Height="30"
+                Content="Скопировать Спасибо СберМаркет"
+                Command="{Binding CopyHeaderCommand}"
+                HorizontalAlignment="Right"
+                Background="#76cc76"
+                Margin="0,0,155,0"/>
+        <Button Grid.Row="2"
+                Height="30"
+                Content="Очистить поля"
+                HorizontalAlignment="Left"
+                Background="#d96f6f"
+                Click="ClearFields_Click"/>
+        <Button Grid.Row="2" 
+                Height="30"
+                Content="Скопировать текст"
+                HorizontalAlignment="Right"
+                Background="#72738f"
+                Command="{Binding CopyFullTextCommand}"/>
+    </Grid>
+</Window>
